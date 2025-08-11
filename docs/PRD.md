@@ -48,9 +48,8 @@ npm install @aws-sdk/client-textract
 npm install @vercel/blob
 ```
 
-### 1.2 shadcn/ui Setup
+### 1.2 shadcn/ui components Setup
 ```bash
-npx shadcn-ui@latest init
 npx shadcn-ui@latest add button card input label progress select table tabs toast
 npx shadcn-ui@latest add accordion alert-dialog avatar dialog dropdown-menu separator
 ```
