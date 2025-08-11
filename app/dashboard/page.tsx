@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useAppStore } from "@/lib/store/app-store"
 
 export default function Dashboard() {
-  const { setUploadedDocuments, assessment, setAssessment, property, setProperty } = useAppStore()
+  const { setUploadedDocuments, assessment, setAssessment, property, setProperty, setEmailNotifications } = useAppStore()
 
   // Live mode: hydrate last analysis from Upstash on mount
   useEffect(() => {
@@ -41,10 +41,19 @@ export default function Dashboard() {
           highEstimate: a.valuation?.highEstimate,
           priceHistory: a.valuation?.priceHistory ?? [],
         })
+
+        // Hydrate email notifications history
+        const notifRes = await fetch('/api/notifications/history', { cache: 'no-store' })
+        if (notifRes.ok) {
+          const notifData = await notifRes.json()
+          if (Array.isArray(notifData?.notifications)) {
+            setEmailNotifications(notifData.notifications)
+          }
+        }
       } catch {}
     }
     load()
-  }, [setAssessment, setProperty])
+  }, [setAssessment, setProperty, setEmailNotifications])
 
   return (
     <div className="container mx-auto p-6 space-y-6">
