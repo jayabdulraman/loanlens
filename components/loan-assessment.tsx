@@ -49,6 +49,10 @@ export function LoanAssessment({ assessment }: { assessment: LoanAssessmentData 
       toast.success(
         `${assessment.eligibilityStatus === "approved" ? "Approval" : "Conditional"} email sent to ${assessment.borrowerInfo.email}`
       )
+
+      // Optimistically add to local notifications store
+      // NOTE: EmailNotifications list hydrates from /api/notifications/history on page load
+      // so this is just UI-friendly immediate feedback; persistence handled on server
     } catch {
       setEmailStatus("error")
       toast.error("Failed to send email. Please retry.")

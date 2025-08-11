@@ -32,6 +32,7 @@ type AppState = {
 
   // Email notifications history
   emailNotifications: EmailNotification[]
+  setEmailNotifications: (n: EmailNotification[]) => void
   addEmailNotification: (n: EmailNotification) => void
 }
 
@@ -48,6 +49,7 @@ export const useAppStore = create<AppState>((set) => ({
   setProperty: (property) => set({ property }),
 
   emailNotifications: [],
+  setEmailNotifications: (n) => set({ emailNotifications: n }),
   addEmailNotification: (n) => set((s) => ({ emailNotifications: [n, ...s.emailNotifications] })),
 }))
 
